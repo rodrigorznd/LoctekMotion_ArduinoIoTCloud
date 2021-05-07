@@ -36,13 +36,13 @@ const byte THREE_PIN = 4;
 const byte MEMORY_PIN = 5;
 const byte ALARM_PIN = 8;
 
-const int MAX_CICLES = 200;
+const int MAX_CYCLES = 200;
 
 bool first = true;
 int incomingByte = 0;
 byte buffer[100];
 int bufferPosition = 0;
-int cicles = MAX_CICLES;
+int cycles = MAX_CYCLES;
 
 Desk::DeskCommand cmd = Desk::IDLE;
 Desk::DeskCommand btn_cmd = Desk::IDLE;
@@ -98,16 +98,16 @@ void loop() {
   readButtonCommand();
   
   if (cmd != Desk::IDLE || btn_cmd != Desk::IDLE) {
-    cicles = MAX_CICLES;
+    cycles = MAX_CYCLES;
     if (btn_cmd) {
       desk.sendCommand(btn_cmd);
     } else {
       desk.sendCommand(cmd);
     }
   } else {
-    if (cicles > 0) {
+    if (cycles > 0) {
       desk.sendIdleCommand();
-      cicles--;
+      cycles--;
     } else {
       desk.standBy();
     }
